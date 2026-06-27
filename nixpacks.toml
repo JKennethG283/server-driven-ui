@@ -1,0 +1,11 @@
+# Monorepo: deploy API only (ignore app/ Node build).
+providers = ["python"]
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
+
+[phases.install]
+cmds = ["pip install -r api/requirements.txt"]
+
+[start]
+cmd = "uvicorn api.main:app --host 0.0.0.0 --port $PORT"

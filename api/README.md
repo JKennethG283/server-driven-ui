@@ -25,6 +25,16 @@ uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 
 Open http://localhost:8000/docs for interactive API docs.
 
+## Deploy (Railway)
+
+Repo includes `railway.toml` and `nixpacks.toml` so Railway builds **Python only** (not the `app/` frontend).
+
+1. New Project → Deploy from GitHub → this repo (root directory empty).
+2. Variables: `GOOGLE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`.
+3. Generate a public domain → test `/health`.
+
+If build still fails, confirm **Settings → Build** uses `pip install -r api/requirements.txt` and **Start** uses `uvicorn api.main:app --host 0.0.0.0 --port $PORT`.
+
 ## Connect the frontend
 
 ```bash
