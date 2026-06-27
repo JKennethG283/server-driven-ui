@@ -2,6 +2,8 @@
 
 A TypeScript social app prototype where each user profile drives the entire UI — colors, typography, motion, and avatar backdrop — from a single JSON document. Includes a Python avatar generator that fills in mascot images and visual identity using Gemini and Cloudflare Workers AI.
 
+**Live demo:** [https://server-driven-ui-fawn.vercel.app/](https://server-driven-ui-fawn.vercel.app/) — deployed on Vercel from the `app/` directory (Vite preset).
+
 ## What it does
 
 - **Frontend (`app/`)** — React + Vite app themed per user via SDUI. Load bundled profiles or upload any schema-valid JSON; the app derives CSS variables from profile data and reskins instantly.
@@ -27,13 +29,17 @@ A TypeScript social app prototype where each user profile drives the entire UI �
 
 ## Quick start — frontend
 
+Try the live app at [https://server-driven-ui-fawn.vercel.app/](https://server-driven-ui-fawn.vercel.app/) — use the profile switcher to try bundled users or upload a schema-valid `.json` file.
+
+Run locally:
+
 ```bash
 cd app
 npm install
 npm run dev
 ```
 
-Open the URL Vite prints (usually `http://localhost:5173`). Use the profile switcher to try bundled users or upload a `.json` file.
+Open the URL Vite prints (usually `http://localhost:5173`).
 
 Build for production:
 
@@ -41,6 +47,10 @@ Build for production:
 npm run build
 npm run preview
 ```
+
+### Deploy to Vercel
+
+Connect this repo in Vercel, set **Root Directory** to `app`, and use the **Vite** preset. Build command: `npm run build`; output directory: `dist`.
 
 ## Quick start — avatar generator
 

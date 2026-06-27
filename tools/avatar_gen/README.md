@@ -19,6 +19,10 @@ persona (Gemini) -> image prompt -> image (Cloudflare FLUX/SDXL) -> host
 - **Validation:** the assembled object is checked against
   `data/schema/user-response.schema.json`; on failure the graph retries.
 
+Profiles copied into `app/src/data/profiles/` appear in the live web app at
+[https://server-driven-ui-fawn.vercel.app/](https://server-driven-ui-fawn.vercel.app/)
+after you redeploy (or locally via `npm run dev` in `app/`).
+
 ## Setup
 
 ```bash
@@ -70,4 +74,5 @@ or just the `data` object; the output preserves whichever shape was given.
   `file://` URI (`--no-host`) is used - never a bare relative path.
 - Generated profiles appear in the web app's switcher automatically (they're copied
   into `app/src/data/profiles/`, which the app auto-loads). Use `--no-apply-to-app`
-  to opt out.
+  to opt out. To see new profiles on the live demo, commit the updated JSON and let
+  Vercel redeploy.
