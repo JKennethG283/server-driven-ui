@@ -1,0 +1,13 @@
+.git
+.venv
+**/__pycache__
+**/*.py[cod]
+node_modules
+app/node_modules
+app/dist
+.env
+.env.*
+!.env.example
+tools/avatar_gen/out
+api/data/users/*.json
+docs
