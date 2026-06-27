@@ -1,0 +1,30 @@
+# Local docs (not published)
+docs/
+
+# Dependencies & build output
+node_modules/
+dist/
+dist-ssr/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs & caches
+*.log
+.vite/
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Generated avatar output
+tools/avatar_gen/out/

@@ -1,0 +1,280 @@
+{
+    "code": 200,
+    "message": "User retrieved",
+    "data": {
+        "id": 7,
+        "created_at": "2026-05-12T10:21:44.112003Z",
+        "updated_at": "2026-06-27T07:13:10.110462Z",
+        "telegram_id": 209554821,
+        "username": "lunatides",
+        "first_name": "Luna",
+        "last_name": "Reyes",
+        "has_completed_quiz": true,
+        "has_set_goal": true,
+        "daily_reveals_used": 3,
+        "daily_reveals_reset": "2026-06-23T00:00:00Z",
+        "bonus_reveals": 2,
+        "referral_code": "MOONWAVE3",
+        "is_active": true,
+        "is_admin": false,
+        "last_active_at": "2026-06-22T18:03:11.778120Z",
+        "user_id": 7,
+        "bio": "Marine biologist who paints tide pools",
+        "dob_year": 1994,
+        "dob_month": 3,
+        "dob_day": 2,
+        "daily_inspiration": "Stillness is not emptiness; it is where the deepest currents are felt.",
+        "character_profile": {
+            "zodiac": {
+                "sign": "Rabbit",
+                "values": [
+                    "harmony",
+                    "compassion",
+                    "intuition",
+                    "creativity",
+                    "peace",
+                    "loyalty"
+                ],
+                "element": "Water",
+                "strengths": [
+                    "Deeply empathetic, they sense the moods of others and offer quiet comfort.",
+                    "Patient and gentle, they create calm in the most turbulent of rooms.",
+                    "Their imagination runs deep, turning feeling into art and meaning."
+                ],
+                "weaknesses": [
+                    "They avoid conflict so completely that their own needs go unspoken.",
+                    "A tendency to retreat inward can read as distance to those who love them.",
+                    "Overly sensitive to criticism, they may dwell on a single sharp word for days."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They are nurturing, attentive partners who remember the small things.",
+                        "They build emotional safety, making others feel truly seen and held."
+                    ],
+                    "weaknesses": [
+                        "Their conflict-avoidance can let resentment quietly accumulate.",
+                        "They may merge so fully with a partner that they lose their own edges."
+                    ]
+                },
+                "rules_to_live": [
+                    "Protect your peace, but do not mistake silence for safety.",
+                    "Let your softness be a strength, never an apology.",
+                    "Tend to your own garden before you water everyone else's."
+                ],
+                "personality_traits": [
+                    "gentle",
+                    "intuitive",
+                    "empathetic",
+                    "creative",
+                    "reserved",
+                    "loyal",
+                    "sensitive",
+                    "calm"
+                ],
+                "living_happily_tips": [
+                    "Schedule real solitude to recharge; you give from a full cup, not an empty one.",
+                    "Practice voicing one small need each day until honesty feels safe.",
+                    "Keep a creative ritual—painting, writing, music—as your emotional release valve."
+                ],
+                "success_definitions": [
+                    "A life rich in deep, trusting relationships rather than wide, shallow ones.",
+                    "Creating something beautiful that helps others feel less alone.",
+                    "Inner peace that holds steady regardless of outside noise."
+                ]
+            },
+            "horoscope": {
+                "sign": "Pisces",
+                "values": [
+                    "empathy",
+                    "imagination",
+                    "spirituality",
+                    "kindness",
+                    "art",
+                    "connection"
+                ],
+                "strengths": [
+                    "Boundlessly compassionate, they feel the world's emotions as their own.",
+                    "Highly imaginative and artistic, they see poetry where others see routine.",
+                    "Intuitive almost to the point of clairvoyance about people's true feelings.",
+                    "Selfless and forgiving, they give others endless second chances."
+                ],
+                "weaknesses": [
+                    "They can drift into escapism when reality feels too heavy.",
+                    "Weak personal boundaries leave them drained by others' problems.",
+                    "Prone to idealizing people and then aching when reality disappoints.",
+                    "Indecisive, they let the current carry them rather than choosing a direction."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They love unconditionally and make their partner feel cherished.",
+                        "Emotionally attuned, they often know what you need before you say it.",
+                        "Romantic and devoted, they keep tenderness alive over years.",
+                        "Forgiving by nature, they rarely keep score."
+                    ],
+                    "weaknesses": [
+                        "They may lose themselves entirely in the relationship.",
+                        "Avoiding hard conversations, they let small hurts fester unseen.",
+                        "Idealization can set partners up against impossible expectations.",
+                        "They sometimes sacrifice their own dreams to keep the peace."
+                    ]
+                },
+                "rules_to_live": [
+                    "Feel everything, but do not let every feeling steer the ship.",
+                    "Boundaries are an act of love, for you and for them.",
+                    "Turn your dreams into something you can hold, not just something you imagine.",
+                    "Choose, even imperfectly; a tide that never turns becomes a swamp."
+                ],
+                "personality_traits": [
+                    "compassionate",
+                    "imaginative",
+                    "intuitive",
+                    "dreamy",
+                    "gentle",
+                    "selfless",
+                    "artistic",
+                    "adaptable"
+                ],
+                "living_happily_tips": [
+                    "Anchor your days with a simple routine so your dreaminess has a shore to return to.",
+                    "Limit time with draining people; your empathy is precious, not infinite.",
+                    "Channel big emotions into a creative practice instead of bottling them up.",
+                    "Spend time near water—it genuinely steadies your nervous system."
+                ],
+                "success_definitions": [
+                    "Living a life guided by meaning, compassion, and creative expression.",
+                    "Helping others heal and feel understood.",
+                    "Finding a love that feels like coming home.",
+                    "Making art that moves people."
+                ]
+            }
+        },
+        "gender": "female",
+        "place_of_birth": "Valparaíso, Chile",
+        "current_location": "Lisbon, Portugal",
+        "profile_created_at": "2026-05-12T10:21:44.112003Z",
+        "profile_updated_at": "2026-06-27T07:13:10.110462Z",
+        "representation_profile": {
+            "symbolism": {
+                "archetype": "The Mystic Dreamer",
+                "theme_song": "Enya - Orinoco Flow",
+                "core_elements": [
+                    "Water",
+                    "Intuition",
+                    "Creativity",
+                    "Harmony",
+                    "Empathy",
+                    "Dreams",
+                    "Peace"
+                ],
+                "totemic_animals": [
+                    "Rabbit",
+                    "Seahorse",
+                    "Dolphin"
+                ],
+                "color_meanings": {
+                    "#ADD8E6": "Serenity, fluidity, emotional depth",
+                    "#E0BBE4": "Intuition, imagination, spiritual connection",
+                    "#F4F0F0": "Purity, peace, quiet reflection",
+                    "#98FB98": "Growth, nature, renewal"
+                }
+            },
+            "visual_identity": {
+                "pose": "Peaceful contemplation, slightly curled, reminiscent of a rabbit resting or a fish gently swimming.",
+                "style": "Kawaii / minimalist plush creature with soft, rounded edges.",
+                "gender": "Female",
+                "base_form": "Plush rabbit with subtle, iridescent fish-like fins on its back and a gentle, flowing tail.",
+                "eye_design": {
+                    "color": "#66CCFF",
+                    "shape": "Large, round, and gentle with a slight upward curve, giving a dreamy, empathetic gaze.",
+                    "glow_intensity": 0.6
+                },
+                "accessories": [
+                    "Miniature seashell necklace",
+                    "Small, intricately painted pebble",
+                    "A tiny, worn paintbrush tucked into an ear"
+                ],
+                "color_palette": [
+                    "#ADD8E6",
+                    "#87CEEB",
+                    "#E0BBE4",
+                    "#F4F0F0",
+                    "#98FB98"
+                ],
+                "form_variants": [
+                    "Deep Sea form (darker blues, more pronounced fins)",
+                    "Tide Pool Artist form (subtle paint splatters, holding a tiny palette)",
+                    "Moonlit Shore form (iridescent sheen, ethereal glow)"
+                ],
+                "animation_effects": [
+                    "Subtle shimmering aura like water reflections",
+                    "Gentle, wave-like swaying motion",
+                    "Tiny, sparkling 'plankton' motes occasionally drifting around her"
+                ],
+                "signature_markings": {
+                    "glow": true,
+                    "color": "#FFFFFF",
+                    "pattern": "Subtle, swirling wave pattern that also resembles a rabbit's ear shape",
+                    "location": "Over the heart/chest area, subtly glowing beneath the plush fur"
+                }
+            },
+            "narrative_context": {
+                "world": {
+                    "name": "Aetherea Mare",
+                    "type": "Mystical ocean realm with hidden tide pools and bioluminescent flora",
+                    "terrain": [
+                        "Coral reefs",
+                        "Kelp forests",
+                        "Sandy shallows",
+                        "Moonlit tide pools"
+                    ],
+                    "time_period": "Timeless, ethereal existence"
+                },
+                "nemesis": "The Discordant Dredger, a shadowy entity that pollutes waters and sows discord.",
+                "allegiance": "Guardians of the Tide Pools and Seekers of Harmony",
+                "origin_story": "Born from a whisper of the ocean and the silent patience of the moon, Luna emerged from a bioluminescent tide pool, imbued with the empathy of the sea and the quiet wisdom of ancient waters. She learned to speak through the colors she found in the world, painting her feelings onto the shifting sands.",
+                "current_mission": "To find and restore harmony to polluted or disrupted tide pools across Aetherea Mare, using her art to remind others of the ocean's delicate beauty and interconnectedness."
+            },
+            "personality_profile": {
+                "fears": [
+                    "Conflict and confrontation",
+                    "Environmental destruction",
+                    "Loneliness or isolation",
+                    "Being misunderstood or unheard",
+                    "Chaos and harsh realities"
+                ],
+                "quirks": [
+                    "Always carries a small, smooth, ocean-tumbled stone for comfort.",
+                    "Hums soft, wordless melodies when deep in thought or observation.",
+                    "Gets lost in contemplation while gazing at any body of water, no matter how small.",
+                    "Has a tendency to 'float' away in thought during conversations."
+                ],
+                "traits": [
+                    "Empathetic",
+                    "Imaginative",
+                    "Intuitive",
+                    "Gentle",
+                    "Sensitive",
+                    "Peaceful",
+                    "Loyal",
+                    "Creative",
+                    "Reserved",
+                    "Adaptable"
+                ],
+                "alignment": "Neutral Good",
+                "dominant_emotion": "Serenity / Compassion",
+                "thinking_feeling": {
+                    "scale": 0.9,
+                    "description": "0 = logical thinking dominant, 1 = emotional feeling dominant"
+                },
+                "introversion_extroversion": {
+                    "scale": 0.2,
+                    "description": "0 = fully introverted, 1 = fully extroverted"
+                }
+            }
+        },
+        "avatar_picture": "https://files.catbox.moe/p3ulxs.jpg",
+        "avatar_description": "A plush rabbit, soft as seafoam, rests in a gentle curl, its luminous off-white fur subtly shifting into pale blues and purples. Iridescent fins shimmer along its back in hues of #ADD8E6 and #87CEEB, while its flowing tail unfurls like a silken current, reflecting the ethereal glow of Aetherea Mare. With eyes closed in peaceful contemplation, a miniature seashell necklace adorns its neck, and a tiny, worn paintbrush peeks from behind one ear, as it cradles an intricately painted pebble, embodying a serene, dreaming artist.",
+        "avatar_status": "completed",
+        "avatar_generation_started_at": "2026-06-27T07:12:59.407104Z"
+    }
+}

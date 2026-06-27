@@ -1,0 +1,280 @@
+{
+    "code": 200,
+    "message": "User retrieved",
+    "data": {
+        "id": 12,
+        "created_at": "2026-06-18T05:02:09.330451Z",
+        "updated_at": "2026-06-27T07:27:05.678972Z",
+        "telegram_id": 884412097,
+        "username": "marcusbuilds",
+        "first_name": "Marcus",
+        "last_name": "Adeyemi",
+        "has_completed_quiz": true,
+        "has_set_goal": false,
+        "daily_reveals_used": 0,
+        "daily_reveals_reset": null,
+        "bonus_reveals": 0,
+        "referral_code": "STONE9QXZ",
+        "is_active": true,
+        "is_admin": false,
+        "last_active_at": "2026-06-20T22:47:30.001882Z",
+        "user_id": 12,
+        "bio": "Structural engineer. I fix things that wobble.",
+        "dob_year": 1989,
+        "dob_month": 1,
+        "dob_day": 9,
+        "daily_inspiration": null,
+        "character_profile": {
+            "zodiac": {
+                "sign": "Ox",
+                "values": [
+                    "reliability",
+                    "discipline",
+                    "honesty",
+                    "stability",
+                    "diligence",
+                    "duty"
+                ],
+                "element": "Earth",
+                "strengths": [
+                    "Unshakeably dependable, they finish what they start no matter the cost.",
+                    "Methodical and patient, they build slow, lasting foundations others trust.",
+                    "Honest to the core, their word is genuinely as good as a signed contract."
+                ],
+                "weaknesses": [
+                    "Stubborn to a fault, they resist changing course even when shown a better one.",
+                    "They struggle to express emotion, mistaking stoicism for strength.",
+                    "Their high standards can curdle into harsh judgment of themselves and others."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They are steady, loyal partners you can build a whole life around.",
+                        "Actions over words—they show love through reliability and provision."
+                    ],
+                    "weaknesses": [
+                        "Emotional unavailability can leave a partner guessing how they feel.",
+                        "Inflexibility makes compromise feel like a slow, grinding negotiation."
+                    ]
+                },
+                "rules_to_live": [
+                    "Do the work properly the first time and you'll never do it twice.",
+                    "A promise made is a debt owed.",
+                    "Strength is quiet; it does not need to announce itself."
+                ],
+                "personality_traits": [
+                    "dependable",
+                    "disciplined",
+                    "patient",
+                    "stubborn",
+                    "honest",
+                    "hardworking",
+                    "reserved",
+                    "practical"
+                ],
+                "living_happily_tips": [
+                    "Let people in; vulnerability is not the opposite of strength.",
+                    "Build rest into your schedule the way you'd build it into a structure—on purpose.",
+                    "Loosen your grip on perfection; 'good and done' often beats 'perfect and late'."
+                ],
+                "success_definitions": [
+                    "Having built something solid and lasting that outlives the effort.",
+                    "Being the person others rely on when everything else is shaking.",
+                    "A stable, well-provided-for life with no debts, financial or moral."
+                ]
+            },
+            "horoscope": {
+                "sign": "Capricorn",
+                "values": [
+                    "ambition",
+                    "responsibility",
+                    "integrity",
+                    "structure",
+                    "legacy",
+                    "perseverance"
+                ],
+                "strengths": [
+                    "Relentlessly disciplined, they climb steadily toward long-term goals.",
+                    "Deeply responsible, they shoulder burdens others quietly walk away from.",
+                    "Pragmatic and strategic, they see the realistic path to the summit.",
+                    "Patient enough to play the long game when everyone else wants it now."
+                ],
+                "weaknesses": [
+                    "They can be cold and overly serious, forgetting to simply enjoy life.",
+                    "Workaholic tendencies push them to define their worth by output.",
+                    "Pessimistic at times, they brace for the worst by default.",
+                    "Slow to trust, they keep even close people at a careful distance."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They are committed for the long haul and take partnership seriously.",
+                        "Dependable providers who create real security and structure.",
+                        "Once they commit, their loyalty is absolute.",
+                        "They quietly plan a shared future with care and intention."
+                    ],
+                    "weaknesses": [
+                        "Work can repeatedly take priority over the relationship.",
+                        "Emotional reserve can make a partner feel shut out.",
+                        "They may treat the relationship like a project to manage.",
+                        "Their seriousness can drain spontaneity and play."
+                    ]
+                },
+                "rules_to_live": [
+                    "Climb steadily; the mountain rewards the patient, not the loud.",
+                    "Your reputation is built in private, in the work no one sees.",
+                    "Plan for winter, but remember to live in summer.",
+                    "Discipline is the bridge between goals and accomplishment."
+                ],
+                "personality_traits": [
+                    "ambitious",
+                    "responsible",
+                    "disciplined",
+                    "pragmatic",
+                    "reserved",
+                    "loyal",
+                    "serious",
+                    "determined"
+                ],
+                "living_happily_tips": [
+                    "Define success as a life lived, not just a ladder climbed.",
+                    "Schedule fun as deliberately as you schedule work—it counts too.",
+                    "Share the weight; you don't have to carry every load alone.",
+                    "Celebrate milestones instead of immediately setting the next one."
+                ],
+                "success_definitions": [
+                    "Reaching the top of a chosen field through sustained, honest effort.",
+                    "Building a legacy and security that protects the people they love.",
+                    "Earning lasting respect rather than fleeting attention.",
+                    "Mastery and authority earned the hard, real way."
+                ]
+            }
+        },
+        "gender": "male",
+        "place_of_birth": "Lagos, Nigeria",
+        "current_location": "Manchester, United Kingdom",
+        "profile_created_at": "2026-06-18T05:02:09.330451Z",
+        "profile_updated_at": "2026-06-27T07:27:05.678972Z",
+        "representation_profile": {
+            "symbolism": {
+                "archetype": "The Steadfast Foundation",
+                "theme_song": "A steady, rhythmic beat, like a clockwork mechanism or a distant, rumbling bassline, evoking quiet strength and enduring purpose.",
+                "core_elements": [
+                    "Earth",
+                    "Structure",
+                    "Resilience",
+                    "Patience",
+                    "Integrity"
+                ],
+                "totemic_animals": [
+                    "Ox",
+                    "Mountain Goat",
+                    "Beaver"
+                ],
+                "color_meanings": {
+                    "#4A3C32": "Grounding, Stability, Earth",
+                    "#6B7F8C": "Discipline, Logic, Reliability",
+                    "#BF9B30": "Ambition, Quality, Enduring Value"
+                }
+            },
+            "visual_identity": {
+                "pose": "Standing foursquare and firm, perhaps holding a miniature, perfectly plumbed level, conveying a sense of grounded stability.",
+                "style": "Kawaii, minimalist, sturdy plush. Clean lines, soft textures, with a robust and blocky yet endearing form.",
+                "gender": "Male",
+                "base_form": "A rounded, stocky plush creature, resembling a stylized ox with subtle, small goat-like horns. Its body is substantial yet soft, like a well-crafted beanbag.",
+                "eye_design": {
+                    "color": "#3A4F5C",
+                    "shape": "Small, focused, slightly narrowed dots, conveying concentration and a serious demeanor.",
+                    "glow_intensity": 0.1
+                },
+                "accessories": [
+                    "A tiny, perfectly fitted hard hat",
+                    "A rolled-up blueprint scroll tied with a simple string",
+                    "A small, polished steel wrench hanging from a belt loop"
+                ],
+                "color_palette": [
+                    "#4A3C32",
+                    "#8B7355",
+                    "#6B7F8C",
+                    "#3A4F5C",
+                    "#BF9B30"
+                ],
+                "form_variants": [
+                    "Reinforced Form (slightly more angular, with visible seams like structural beams)",
+                    "Architect's Focus (wearing small spectacles, holding a miniature drafting compass)"
+                ],
+                "animation_effects": [
+                    "Subtle ground tremors when he moves with purpose",
+                    "A faint 'click' sound when he sets something down perfectly",
+                    "A slow, deliberate nod of approval or contemplation"
+                ],
+                "signature_markings": {
+                    "glow": false,
+                    "color": "#BF9B30",
+                    "pattern": "A minimalist interlocking gear or a subtle, stylized plumb bob icon.",
+                    "location": "Centered on his chest, resembling a sturdy badge."
+                }
+            },
+            "narrative_context": {
+                "world": {
+                    "name": "The Aethel Lands",
+                    "type": "A realm of ancient, enduring structures and carefully planned new developments, often facing natural erosion or sudden shifts.",
+                    "terrain": [
+                        "Vast, stable plateaus",
+                        "Deep, carved canyons",
+                        "Precise terraced farmlands",
+                        "Sites of ongoing, meticulous construction"
+                    ],
+                    "time_period": "Timeless; cycles between periods of meticulous rebuilding and vigilant maintenance."
+                },
+                "nemesis": "The Shifting Sands, an amorphous entity representing chaos, shortcuts, and entropy, constantly undermining established order and integrity.",
+                "allegiance": "The Architect's Guild and the Keepers of the Foundation, dedicated to enduring construction, societal stability, and the pursuit of long-term quality.",
+                "origin_story": "Marcus was formed from the crystallized core of an ancient mountain, imbued with the earth's memory of stability and the precise knowledge of its geological layers, destined to bring structure and order to the world.",
+                "current_mission": "To restore and reinforce the 'Sky-Pillar Bridge,' a vital ancient structure that has begun to show signs of critical stress due to the Shifting Sands' latest incursions."
+            },
+            "personality_profile": {
+                "fears": [
+                    "Structural collapse",
+                    "Unfulfilled duty",
+                    "Chaos and disorder",
+                    "Being seen as unreliable",
+                    "Emotional vulnerability"
+                ],
+                "quirks": [
+                    "Before entering any new space, he subtly checks the load-bearing walls or foundational elements.",
+                    "Meticulously straightens any crooked object he encounters.",
+                    "Communicates primarily through precise, economical statements, often preferring actions over words."
+                ],
+                "traits": [
+                    "Dependable",
+                    "Disciplined",
+                    "Patient",
+                    "Stubborn",
+                    "Honest",
+                    "Hardworking",
+                    "Reserved",
+                    "Practical",
+                    "Ambitious",
+                    "Responsible",
+                    "Pragmatic",
+                    "Loyal",
+                    "Serious",
+                    "Determined",
+                    "Stoic"
+                ],
+                "alignment": "Lawful Good",
+                "dominant_emotion": "Quiet resolve, a deep-seated sense of responsibility and determination.",
+                "thinking_feeling": {
+                    "scale": 0.15,
+                    "description": "0 = logical thinking dominant, 1 = emotional feeling dominant"
+                },
+                "introversion_extroversion": {
+                    "scale": 0.2,
+                    "description": "0 = fully introverted, 1 = fully extroverted"
+                }
+            }
+        },
+        "avatar_picture": "https://files.catbox.moe/86om2z.jpg",
+        "avatar_description": "A substantial, plush creature, resembling a stylized ox with subtle goat-like horns, stands foursquare and firm, its beanbag-soft body rendered in deep earthy browns and steely blue-greys. A miniature, perfectly plumbed level is held steady in its paws, while a tiny gold hard hat perches atop its head, complemented by a rolled blueprint scroll and a glinting steel wrench, embodying unwavering, grounded stability.",
+        "avatar_status": "completed",
+        "avatar_generation_started_at": "2026-06-27T07:26:53.983200Z"
+    }
+}

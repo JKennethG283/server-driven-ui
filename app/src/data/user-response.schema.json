@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrana.app/schemas/user-response.schema.json",
+  "title": "User Retrieved Response",
+  "description": "Schema for the API response returned when retrieving a single user (see sample.json).",
+  "type": "object",
+  "required": ["code", "message", "data"],
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "type": "integer",
+      "description": "HTTP-style status code for the response.",
+      "examples": [200]
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable status message.",
+      "examples": ["User retrieved"]
+    },
+    "data": {
+      "$ref": "#/$defs/user"
+    }
+  },
+  "$defs": {
+    "user": {
+      "type": "object",
+      "description": "A user account and its associated character + representation profiles.",
+      "required": [
+        "id",
+        "created_at",
+        "updated_at",
+        "telegram_id",
+        "username",
+        "first_name",
+        "last_name",
+        "has_completed_quiz",
+        "has_set_goal",
+        "daily_reveals_used",
+        "daily_reveals_reset",
+        "bonus_reveals",
+        "referral_code",
+        "is_active",
+        "is_admin",
+        "last_active_at",
+        "user_id",
+        "bio",
+        "dob_year",
+        "dob_month",
+        "dob_day",
+        "daily_inspiration",
+        "character_profile",
+        "representation_profile",
+        "avatar_picture",
+        "avatar_description",
+        "avatar_status",
+        "avatar_generation_started_at",
+        "gender",
+        "place_of_birth",
+        "current_location",
+        "profile_created_at",
+        "profile_updated_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "telegram_id": {
+          "type": "integer",
+          "description": "Telegram account id (the app is a Telegram Mini App)."
+        },
+        "username": { "type": "string" },
+        "first_name": { "type": "string" },
+        "last_name": { "type": "string" },
+        "has_completed_quiz": {
+          "type": "boolean",
+          "description": "Onboarding gate: whether the personality quiz is done."
+        },
+        "has_set_goal": {
+          "type": "boolean",
+          "description": "Onboarding gate: whether the user has set a goal."
+        },
+        "daily_reveals_used": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of match reveals spent in the current daily window."
+        },
+        "daily_reveals_reset": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "When the daily reveal count resets. Null until the first reveal is used."
+        },
+        "bonus_reveals": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Extra reveals on top of the daily allowance."
+        },
+        "referral_code": { "type": "string" },
+        "is_active": { "type": "boolean" },
+        "is_admin": { "type": "boolean" },
+        "last_active_at": { "type": "string", "format": "date-time" },
+        "user_id": {
+          "type": "integer",
+          "description": "Profile owner id (mirrors id in the sample)."
+        },
+        "bio": { "type": "string" },
+        "dob_year": { "type": "integer" },
+        "dob_month": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "dob_day": { "type": "integer", "minimum": 1, "maximum": 31 },
+        "daily_inspiration": {
+          "type": ["string", "null"],
+          "description": "A daily inspirational message; null when none is set."
+        },
+        "character_profile": { "$ref": "#/$defs/characterProfile" },
+        "representation_profile": { "$ref": "#/$defs/representationProfile" },
+        "avatar_picture": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the generated avatar image."
+        },
+        "avatar_description": { "type": "string" },
+        "avatar_status": {
+          "type": "string",
+          "description": "Avatar generation status.",
+          "examples": ["completed", "pending", "generating", "failed"]
+        },
+        "avatar_generation_started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gender": { "type": ["string", "null"] },
+        "place_of_birth": { "type": ["string", "null"] },
+        "current_location": { "type": ["string", "null"] },
+        "profile_created_at": { "type": "string", "format": "date-time" },
+        "profile_updated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "characterProfile": {
+      "type": "object",
+      "description": "Astrological character built from Chinese zodiac and Western horoscope.",
+      "required": ["zodiac", "horoscope"],
+      "additionalProperties": false,
+      "properties": {
+        "zodiac": { "$ref": "#/$defs/signProfile" },
+        "horoscope": { "$ref": "#/$defs/signProfile" }
+      }
+    },
+
+    "signProfile": {
+      "type": "object",
+      "description": "A single astrological sign profile (zodiac or horoscope).",
+      "required": [
+        "sign",
+        "values",
+        "strengths",
+        "weaknesses",
+        "relationship",
+        "rules_to_live",
+        "personality_traits",
+        "living_happily_tips",
+        "success_definitions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sign": { "type": "string" },
+        "element": {
+          "type": "string",
+          "description": "Associated element. Present on the Chinese zodiac; absent on the horoscope in the sample."
+        },
+        "values": { "type": "array", "items": { "type": "string" } },
+        "strengths": { "type": "array", "items": { "type": "string" } },
+        "weaknesses": { "type": "array", "items": { "type": "string" } },
+        "relationship": { "$ref": "#/$defs/relationship" },
+        "rules_to_live": { "type": "array", "items": { "type": "string" } },
+        "personality_traits": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "living_happily_tips": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "success_definitions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "relationship": {
+      "type": "object",
+      "required": ["strengths", "weaknesses"],
+      "additionalProperties": false,
+      "properties": {
+        "strengths": { "type": "array", "items": { "type": "string" } },
+        "weaknesses": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "representationProfile": {
+      "type": "object",
+      "description": "The user's mascot/avatar identity and its narrative world.",
+      "required": [
+        "symbolism",
+        "visual_identity",
+        "narrative_context",
+        "personality_profile"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "symbolism": { "$ref": "#/$defs/symbolism" },
+        "visual_identity": { "$ref": "#/$defs/visualIdentity" },
+        "narrative_context": { "$ref": "#/$defs/narrativeContext" },
+        "personality_profile": { "$ref": "#/$defs/personalityProfile" }
+      }
+    },
+
+    "symbolism": {
+      "type": "object",
+      "required": [
+        "archetype",
+        "theme_song",
+        "core_elements",
+        "color_meanings",
+        "totemic_animals"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "archetype": { "type": "string" },
+        "theme_song": { "type": "string" },
+        "core_elements": { "type": "array", "items": { "type": "string" } },
+        "color_meanings": {
+          "type": "object",
+          "description": "Map of hex color -> the meaning that color carries.",
+          "propertyNames": {
+            "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+          },
+          "additionalProperties": { "type": "string" }
+        },
+        "totemic_animals": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "visualIdentity": {
+      "type": "object",
+      "required": [
+        "pose",
+        "style",
+        "gender",
+        "base_form",
+        "eye_design",
+        "accessories",
+        "color_palette",
+        "form_variants",
+        "animation_effects",
+        "signature_markings"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pose": { "type": "string" },
+        "style": { "type": "string" },
+        "gender": { "type": "string" },
+        "base_form": { "type": "string" },
+        "eye_design": { "$ref": "#/$defs/eyeDesign" },
+        "accessories": { "type": "array", "items": { "type": "string" } },
+        "color_palette": {
+          "type": "array",
+          "description": "Ordered list of hex colors for the avatar.",
+          "items": {
+            "type": "string",
+            "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+          }
+        },
+        "form_variants": { "type": "array", "items": { "type": "string" } },
+        "animation_effects": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "signature_markings": { "$ref": "#/$defs/signatureMarkings" }
+      }
+    },
+
+    "eyeDesign": {
+      "type": "object",
+      "required": ["color", "shape", "glow_intensity"],
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string",
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+        },
+        "shape": { "type": "string" },
+        "glow_intensity": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+
+    "signatureMarkings": {
+      "type": "object",
+      "required": ["glow", "color", "pattern", "location"],
+      "additionalProperties": false,
+      "properties": {
+        "glow": { "type": "boolean" },
+        "color": {
+          "type": "string",
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+        },
+        "pattern": { "type": "string" },
+        "location": { "type": "string" }
+      }
+    },
+
+    "narrativeContext": {
+      "type": "object",
+      "required": [
+        "world",
+        "nemesis",
+        "allegiance",
+        "origin_story",
+        "current_mission"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "world": { "$ref": "#/$defs/narrativeWorld" },
+        "nemesis": { "type": "string" },
+        "allegiance": { "type": "string" },
+        "origin_story": { "type": "string" },
+        "current_mission": { "type": "string" }
+      }
+    },
+
+    "narrativeWorld": {
+      "type": "object",
+      "required": ["name", "type", "terrain", "time_period"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "terrain": { "type": "array", "items": { "type": "string" } },
+        "time_period": { "type": "string" }
+      }
+    },
+
+    "personalityProfile": {
+      "type": "object",
+      "required": [
+        "fears",
+        "quirks",
+        "traits",
+        "alignment",
+        "dominant_emotion",
+        "thinking_feeling",
+        "introversion_extroversion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fears": { "type": "array", "items": { "type": "string" } },
+        "quirks": { "type": "array", "items": { "type": "string" } },
+        "traits": { "type": "array", "items": { "type": "string" } },
+        "alignment": {
+          "type": "string",
+          "description": "D&D-style moral alignment.",
+          "examples": ["Chaotic Good", "Lawful Neutral"]
+        },
+        "dominant_emotion": { "type": "string" },
+        "thinking_feeling": { "$ref": "#/$defs/scale" },
+        "introversion_extroversion": { "$ref": "#/$defs/scale" }
+      }
+    },
+
+    "scale": {
+      "type": "object",
+      "description": "A normalized 0..1 personality axis with a description of the poles.",
+      "required": ["scale", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "scale": { "type": "number", "minimum": 0, "maximum": 1 },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,285 @@
+{
+    "code": 200,
+    "message": "User retrieved",
+    "data": {
+        "id": 4,
+        "created_at": "2026-06-07T07:49:05.094539Z",
+        "updated_at": "2026-06-21T07:07:55.895892Z",
+        "telegram_id": 131837449,
+        "username": "gordonjun",
+        "first_name": "Gordon",
+        "last_name": "Oh",
+        "has_completed_quiz": false,
+        "has_set_goal": false,
+        "daily_reveals_used": 0,
+        "daily_reveals_reset": null,
+        "bonus_reveals": 0,
+        "referral_code": "XTPPE7KL",
+        "is_active": true,
+        "is_admin": false,
+        "last_active_at": "2026-06-07T07:49:05.094539Z",
+        "user_id": 4,
+        "bio": "Software Dev",
+        "dob_year": 1996,
+        "dob_month": 12,
+        "dob_day": 17,
+        "daily_inspiration": null,
+        "character_profile": {
+            "zodiac": {
+                "sign": "Rat",
+                "values": [
+                    "action",
+                    "freedom",
+                    "innovation",
+                    "passion",
+                    "achievement",
+                    "excitement"
+                ],
+                "element": "Fire",
+                "strengths": [
+                    "Extremely energetic and motivated, they pursue their goals with passion and vigor.",
+                    "They love challenges and competition, often pushing themselves and others to new heights.",
+                    "Their dynamism and enthusiasm are contagious, making them natural-born leaders."
+                ],
+                "weaknesses": [
+                    "Their impulsive nature can lead them to act without considering the consequences.",
+                    "Can be aggressive and overly competitive, sometimes alienating others.",
+                    "They have less patience than other Rats and may abandon projects if they lose interest."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They are exciting, passionate, and spontaneous partners who keep life interesting.",
+                        "Fiercely independent, they encourage their partners to be the same."
+                    ],
+                    "weaknesses": [
+                        "Their 'my way or the highway' attitude can lead to conflicts.",
+                        "A strong need for freedom and excitement can make them hesitant to settle down."
+                    ]
+                },
+                "rules_to_live": [
+                    "Act decisively and embrace every challenge.",
+                    "Life should be an adventure, never a routine.",
+                    "Fight for your freedom and your ideals."
+                ],
+                "personality_traits": [
+                    "dynamic",
+                    "energetic",
+                    "competitive",
+                    "charismatic",
+                    "impulsive",
+                    "innovative",
+                    "independent",
+                    "aggressive"
+                ],
+                "living_happily_tips": [
+                    "Practice patience and learn to think things through before taking action.",
+                    "Channel your competitive energy into constructive outlets like sports or business.",
+                    "Learn to value the quieter, more stable aspects of life and relationships."
+                ],
+                "success_definitions": [
+                    "Winning and being recognized as the best in their field.",
+                    "Living a life full of freedom, adventure, and new experiences.",
+                    "Spearheading an innovative project and bringing it to a successful conclusion."
+                ]
+            },
+            "horoscope": {
+                "sign": "Sagittarius",
+                "values": [
+                    "freedom",
+                    "truth",
+                    "knowledge",
+                    "adventure",
+                    "authenticity",
+                    "growth",
+                    "optimism"
+                ],
+                "strengths": [
+                    "Their boundless optimism allows them to see the best in people and situations, inspiring those around them.",
+                    "A great sense of humor, able to find levity and fun in almost any circumstance.",
+                    "Philosophical and open-minded, they are always seeking knowledge and understanding, making them great conversationalists.",
+                    "Generous and big-hearted, they are willing to share what they have with others."
+                ],
+                "weaknesses": [
+                    "Can be brutally honest and tactless, sometimes hurting others' feelings without intending to.",
+                    "A tendency to be impatient and restless, disliking anything that feels stagnant or restrictive.",
+                    "Prone to making promises they can't keep due to over-enthusiasm and a dislike for details.",
+                    "A strong aversion to being controlled or tied down can lead to a fear of commitment."
+                ],
+                "relationship": {
+                    "strengths": [
+                        "They are fun, playful, and bring a sense of adventure to any partnership.",
+                        "They value direct communication and honesty, which builds a strong foundation of trust.",
+                        "Extremely supportive of their partner's individual growth, freedom, and aspirations.",
+                        "They don't hold grudges and are quick to forgive, preferring to move forward."
+                    ],
+                    "weaknesses": [
+                        "Their deep need for freedom can be perceived as a fear of deep emotional commitment or being 'tied down'.",
+                        "Bluntness in communication can lead to unintentional hurt feelings.",
+                        "Can become bored or restless if a relationship lacks intellectual stimulation, growth, or excitement.",
+                        "May overlook the practical, day-to-day details of a shared life."
+                    ]
+                },
+                "rules_to_live": [
+                    "Never stop exploring. The world is a book, and those who do not travel read only one page.",
+                    "Speak your truth, always, but learn to do so with compassion.",
+                    "Embrace change as the only constant and the primary driver of growth.",
+                    "Collect memories and experiences, not just things.",
+                    "Maintain your freedom and independence at all costs."
+                ],
+                "personality_traits": [
+                    "optimistic",
+                    "adventurous",
+                    "honest",
+                    "independent",
+                    "philosophical",
+                    "restless",
+                    "blunt",
+                    "enthusiastic",
+                    "free-spirited"
+                ],
+                "living_happily_tips": [
+                    "Embrace your wanderlust. Schedule regular trips, whether it's across the world or just to a new part of your city.",
+                    "Find a physical outlet for your boundless energy, such as sports, hiking, or dancing.",
+                    "Channel your love for knowledge by never stopping the learning process; take a class, read voraciously, or learn a new skill.",
+                    "Practice active listening and consider the impact of your words before speaking to temper your bluntness with kindness."
+                ],
+                "success_definitions": [
+                    "Success is measured by the richness and diversity of their life experiences, not by material possessions or status.",
+                    "Achieving a state of personal freedom where they can explore the world and their ideas without constraint.",
+                    "The constant pursuit and acquisition of knowledge, truth, and wisdom.",
+                    "Inspiring others to live more authentically and adventurously."
+                ]
+            }
+        },
+        "representation_profile": {
+            "symbolism": {
+                "archetype": "The Seeker / The Explorer",
+                "theme_song": "Celestial Roadtrip (airy, upbeat instrumental evoking dawn departures and starlit paths)",
+                "core_elements": [
+                    "wind (freedom and movement)",
+                    "fire (optimism and inspiration)",
+                    "star (guidance and knowledge)",
+                    "arrow (direction, truth-telling)"
+                ],
+                "color_meanings": {
+                    "#81D4FA": "open sky, travel, openness to new ideas",
+                    "#8E44AD": "philosophical depth, night-time wonder, the stars of knowledge",
+                    "#FFB74D": "warm curiosity and sunlit enthusiasm",
+                    "#FFD54F": "golden optimism, generosity, guiding light",
+                    "#FFF8E7": "comfort, home base, emotional warmth"
+                },
+                "totemic_animals": [
+                    "horse (long-distance travel, Sagittarian echo)",
+                    "swallow (migratory freedom and chosen return)",
+                    "fox (curiosity and clever exploration)"
+                ]
+            },
+            "visual_identity": {
+                "pose": "leaning slightly forward on tip-toes with one stubby paw uplifted and pointing outward, eyes wide and smiling — an eager, inviting stance that says 'let's go'.",
+                "style": "kawaii / minimalist plush with subtle celestial travel motifs",
+                "gender": "ambiguous",
+                "base_form": "An ultra-fluffy creature with a soft, plush-like texture that resembles a microfiber toy, designed in a minimalist kawaii style. Its body is rounded and slightly oval, with short, stubby limbs that seamlessly blend into its form, giving it a smooth and huggable silhouette. It stands upright on two small rounded legs and exudes an aura of gentle affection and comfort. Intentionally simple and expressive, evoking coziness and emotional support—ideal for heartwarming illustrations, stickers, or plush merchandise.",
+                "eye_design": {
+                    "color": "#FFC857",
+                    "shape": "large rounded ovals with a gentle upward crescent highlight (hopeful, eager gaze)",
+                    "glow_intensity": 0.2
+                },
+                "accessories": [
+                    "tiny stitched compass pendant (brass thread)",
+                    "mini satchel covered in travel patches (sun-faded canvas)",
+                    "embroidered arrow patch across the back (stylized Sagittarius motif)",
+                    "folded paper map peeking from a pocket"
+                ],
+                "color_palette": [
+                    "#FFB74D",
+                    "#FFD54F",
+                    "#81D4FA",
+                    "#FFF8E7",
+                    "#8E44AD"
+                ],
+                "form_variants": [
+                    "Wanderer (mini satchel, sun-faded palette, thread-worn edges and a tiny stitched compass)",
+                    "Stargazer (deep-night purple base, star-speckle fur, crescent-ear trim and a faint aurora gradient)",
+                    "Road-Map Sticker (flat graphic, bold outline, simplified arrow patch and paper-fold texture)",
+                    "Cozy Home (plush-sized, muted pastels, no accessories, extra-soft microfleece finish)"
+                ],
+                "animation_effects": [
+                    "floating golden star motes that drift off when it exhales",
+                    "a faint breeze trail with tiny leaf and paper-map particles when it moves",
+                    "soft golden sparkle burst on enthusiastic gestures",
+                    "subtle stitch-sheen shimmer across the back under starlight"
+                ],
+                "signature_markings": {
+                    "glow": true,
+                    "color": "#FFD54F",
+                    "pattern": "constellation-like star cluster forming a stylized arrow",
+                    "location": "upper chest, slight diagonal toward the left shoulder"
+                }
+            },
+            "narrative_context": {
+                "world": {
+                    "name": "AstraRoam",
+                    "type": "whimsical, semi-mythical archipelago of skyways, caravan trails and star-mapped deserts",
+                    "terrain": [
+                        "open skyways and drifting isles",
+                        "rolling golden plains",
+                        "star-stitched deserts",
+                        "winding trade roads and mountain passes",
+                        "bustling bazaars at crossroads"
+                    ],
+                    "time_period": "timeless (a living map that folds past, present, and possibility)"
+                },
+                "nemesis": "The Tether — a shadowy bureaucratic force of anchors, straps and heavy locks that enforces routine, fear of change, and needless obligations",
+                "allegiance": "The Wanderer's Collective (a loose fellowship of roamers, guides, and wayfarers)",
+                "origin_story": "Born from the down-feather of a passing comet and the stitched memories of countless travelers, it awoke wherever cross-roads met star-light. Each fluff fiber contains a story: a hostel laugh, a cliff-top sunrise, a midnight conversation. It wanders to keep those stories warm and to stitch new constellations into the map of the world.",
+                "current_mission": "To gather stories and secret routes, kindle others' courage to leave comfortable harbors, and leave small golden arrows—markers of possibility—where monotony threatens to settle."
+            },
+            "personality_profile": {
+                "fears": [
+                    "being tied down or losing freedom",
+                    "stagnation and the slow erosion of wonder",
+                    "commitment that feels like confinement",
+                    "being misunderstood for blunt honesty"
+                ],
+                "quirks": [
+                    "answers questions with blunt, upbeat honesty and a cheeky grin",
+                    "collects postcards and tiny trinkets from every small journey",
+                    "spontaneously starts new projects or trips at the hint of novelty",
+                    "taps its little foot when bored or when an idea sparks",
+                    "folds tiny paper maps obsessively, even when unnecessary"
+                ],
+                "traits": [
+                    "optimistic",
+                    "adventurous",
+                    "honest",
+                    "independent",
+                    "philosophical",
+                    "restless",
+                    "blunt",
+                    "enthusiastic",
+                    "free-spirited",
+                    "generous"
+                ],
+                "alignment": "Chaotic Good",
+                "dominant_emotion": "exuberant curiosity",
+                "thinking_feeling": {
+                    "scale": 0.35,
+                    "description": "0 = logical thinking dominant, 1 = emotional feeling dominant"
+                },
+                "introversion_extroversion": {
+                    "scale": 0.85,
+                    "description": "0 = fully introverted, 1 = fully extroverted"
+                }
+            }
+        },
+        "avatar_picture": "https://hrtdsxsedckibbknelzy.supabase.co/storage/v1/object/public/avatars/avatar-pictures/4_27ccc5e9.jpg",
+        "avatar_description": "A fluffy, orange, bear-like creature with large, expressive eyes and a backpack filled with maps stands on a cliff edge. The background depicts a whimsical landscape under a starry, purple sky with lanterns and a shooting star. Trails of light and constellations guide the way towards a bustling marketplace in the distance.",
+        "avatar_status": "completed",
+        "avatar_generation_started_at": "2026-06-21T07:56:11.354925Z",
+        "gender": null,
+        "place_of_birth": null,
+        "current_location": null,
+        "profile_created_at": "2026-06-07T07:49:05.094539Z",
+        "profile_updated_at": "2026-06-21T07:56:11.700033Z"
+    }
+}
