@@ -4,6 +4,8 @@ React + Vite + TypeScript app for the server-driven UI prototype. Each user prof
 
 **Live demo:** [https://server-driven-ui-fawn.vercel.app/](https://server-driven-ui-fawn.vercel.app/)
 
+Set `VITE_API_URL` (see `.env.example`) to load profiles from the FastAPI backend instead of bundled JSON.
+
 ## Development
 
 ```bash

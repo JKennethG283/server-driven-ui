@@ -7,6 +7,7 @@ A TypeScript social app prototype where each user profile drives the entire UI �
 ## What it does
 
 - **Frontend (`app/`)** — React + Vite app themed per user via SDUI. Load bundled profiles or upload any schema-valid JSON; the app derives CSS variables from profile data and reskins instantly.
+- **API (`api/`)** — FastAPI service: live user JSON store, matches, and avatar generation. Set `VITE_API_URL` in the frontend to connect.
 - **Data (`data/`)** — JSON Schema, reference output, and test fixtures shared by the app and tooling.
 - **Avatar generator (`tools/avatar_gen/`)** — LangGraph pipeline that generates `representation_profile`, avatar image, and description from a user's `character_profile`.
 
@@ -19,6 +20,7 @@ A TypeScript social app prototype where each user profile drives the entire UI �
 │       ├── theme/          # SDUI: deriveTheme, applyTheme, ProfileContext
 │       ├── pages/          # Home, Profile, Matches, MatchDetail, EditProfile
 │       └── components/     # ProfileSwitcher, layout, etc.
+├── api/                    # FastAPI backend (optional live data + avatar jobs)
 ├── data/
 │   ├── schema/             # user-response.schema.json
 │   ├── reference/          # sample.json (API output reference)
@@ -52,7 +54,30 @@ npm run preview
 
 Connect this repo in Vercel, set **Root Directory** to `app`, and use the **Vite** preset. Build command: `npm run build`; output directory: `dist`.
 
-## Quick start — avatar generator
+Set `VITE_API_URL` in Vercel environment variables when you deploy the FastAPI backend separately.
+
+## Quick start — API (live data)
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate          # Windows
+pip install -r api/requirements.txt
+copy api\.env.example api\.env
+
+uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Connect the frontend:
+
+```bash
+cd app
+copy .env.example .env   # VITE_API_URL=http://localhost:8000
+npm run dev
+```
+
+See [`api/README.md`](api/README.md) for endpoints and avatar generation via API.
+
+## Quick start — avatar generator (CLI)
 
 ```bash
 python -m venv .venv
@@ -94,6 +119,7 @@ Reference shape: `data/reference/sample.json`.
 | Layer | Tools |
 |-------|-------|
 | Frontend | React 19, Vite 8, React Router, TypeScript |
+| API | FastAPI, Uvicorn, Pydantic |
 | Theming | CSS custom properties, chroma-js, @fontsource variable fonts |
 | Validation | Ajv + ajv-formats |
 | Avatar pipeline | Python, LangGraph, LangChain, Gemini, Cloudflare Workers AI (FLUX) |

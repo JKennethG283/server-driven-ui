@@ -28,3 +28,6 @@ Thumbs.db
 
 # Generated avatar output
 tools/avatar_gen/out/
+
+# API runtime user store (seeded from app profiles on first start)
+api/data/users/*.json

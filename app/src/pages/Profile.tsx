@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "../theme/ProfileContext";
+import { useProfile, useUser } from "../theme/ProfileContext";
 import type { SignProfile } from "../data/types";
 import { zodiacGlyph, horoscopeGlyph } from "../lib/user";
 import { Chips, Meter, ListCard } from "../components/ui";
@@ -71,8 +71,10 @@ function SignBlock({
 }
 
 export default function Profile() {
+  const { apiConnected, regenerateAvatar } = useProfile();
   const user = useUser();
   const [tab, setTab] = useState<Tab>("signs");
+  const [regenerating, setRegenerating] = useState(false);
   const { zodiac, horoscope } = user.character_profile;
   const rep = user.representation_profile;
   const sym = rep.symbolism;
@@ -90,6 +92,25 @@ export default function Profile() {
       </header>
 
       <PersonHero user={user} subtitle={user.bio} />
+
+      {apiConnected ? (
+        <div style={{ marginBottom: 16 }}>
+          <button
+            className="btn btn-ghost btn-block"
+            disabled={regenerating || user.avatar_status === "generating"}
+            onClick={() => {
+              setRegenerating(true);
+              regenerateAvatar()
+                .catch((err) => console.error(err))
+                .finally(() => setRegenerating(false));
+            }}
+          >
+            {user.avatar_status === "generating" || regenerating
+              ? "Generating avatar…"
+              : "Regenerate avatar via API"}
+          </button>
+        </div>
+      ) : null}
 
       <div className="tabs">
         {TABS.map((t) => (

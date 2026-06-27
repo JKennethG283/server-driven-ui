@@ -1,0 +1,11 @@
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic>=2
+python-dotenv
+
+# Shared with tools/avatar_gen (avatar pipeline)
+langgraph
+langchain-core
+langchain-google-genai
+requests
+jsonschema
