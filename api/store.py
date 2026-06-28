@@ -1,4 +1,4 @@
-"""JSON file store for user profiles."""
+"""JSON file stores for user profiles and generated UI designs."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = REPO_ROOT / "api" / "data" / "users"
+UI_DESIGN_DIR = REPO_ROOT / "api" / "data" / "ui_designs"
 SEED_DIR = REPO_ROOT / "app" / "src" / "data" / "profiles"
 
 
@@ -97,3 +98,25 @@ class UserStore:
             if key in allowed:
                 data[key] = value
         return self.save(user_id, data, message="User updated")
+
+
+class UIDesignStore:
+    def __init__(self, data_dir: Path = UI_DESIGN_DIR) -> None:
+        self.data_dir = data_dir
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+
+    def path_for(self, user_id: int) -> Path:
+        return self.data_dir / f"{user_id}.json"
+
+    def get(self, user_id: int) -> Optional[Dict[str, Any]]:
+        path = self.path_for(user_id)
+        if not path.exists():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def save(self, user_id: int, ui_design: Dict[str, Any]) -> Dict[str, Any]:
+        self.path_for(user_id).write_text(
+            json.dumps(ui_design, indent=4, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        return ui_design

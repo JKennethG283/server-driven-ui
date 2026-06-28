@@ -7,7 +7,7 @@ A TypeScript social app prototype where each user profile drives the entire UI �
 ## What it does
 
 - **Frontend (`app/`)** — React + Vite app themed per user via SDUI. Load bundled profiles or upload any schema-valid JSON; the app derives CSS variables from profile data and reskins instantly.
-- **API (`api/`)** — FastAPI service: live user JSON store, matches, and avatar generation. Set `VITE_API_URL` in the frontend to connect.
+- **API (`api/`)** — FastAPI service: live user JSON store, matches, UI design generation, and avatar generation. Set `VITE_API_URL` in the frontend to connect.
 - **Data (`data/`)** — JSON Schema, reference output, and test fixtures shared by the app and tooling.
 - **Avatar generator (`tools/avatar_gen/`)** — LangGraph pipeline that generates `representation_profile`, avatar image, and description from a user's `character_profile`.
 
@@ -107,6 +107,17 @@ Themes are derived deterministically from profile JSON — not from image pixels
 | Avatar backdrop | `avatar_picture` when `avatar_status === "completed"` |
 
 Key files: `app/src/theme/deriveTheme.ts`, `applyTheme.ts`, `themeMap.ts`.
+
+The API can now generate UI design JSON separately from the base user profile:
+
+```bash
+curl -X POST http://localhost:8000/users/4/ui/generate \
+  -H "Content-Type: application/json" \
+  -d '{"character_profile":{"zodiac":{"sign":"Rat","element":"Water","personality_traits":["calm","patient"]},"horoscope":{"sign":"Cancer","personality_traits":["nurturing","intuitive"]}}}'
+curl http://localhost:8000/users/4
+```
+
+The second call returns the normal user envelope with the generated UI design merged in, so the frontend can refresh and render the new palette through the existing path.
 
 ## Data schema
 

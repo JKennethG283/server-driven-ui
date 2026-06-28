@@ -18,6 +18,8 @@ __pycache__/
 *.log
 .vite/
 *.tsbuildinfo
+.pytest_cache/
+.pytest-tmp/
 
 # OS / editor
 .DS_Store
@@ -31,3 +33,4 @@ tools/avatar_gen/out/
 
 # API runtime user store (seeded from app profiles on first start)
 api/data/users/*.json
+api/data/ui_designs/*.json

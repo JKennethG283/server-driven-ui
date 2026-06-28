@@ -15,13 +15,15 @@ from dotenv import load_dotenv
 
 from api.matches import build_matches
 from api.services.avatar import mark_failed, mark_generating, run_avatar_pipeline
-from api.store import UserStore, envelope
+from api.services.ui_design import generate_ui_design as build_ui_design
+from api.store import UIDesignStore, UserStore, envelope, unwrap
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(REPO_ROOT / "api" / ".env")
 load_dotenv(REPO_ROOT / "tools" / "avatar_gen" / ".env")
 
 store = UserStore()
+ui_design_store = UIDesignStore()
 
 DEFAULT_ORIGINS = [
     "http://localhost:5173",
@@ -73,6 +75,53 @@ class ImportBody(BaseModel):
     json: Dict[str, Any] = Field(..., description="User envelope or raw data object")
 
 
+class UIGenerateBody(BaseModel):
+    character_profile: Optional[Dict[str, Any]] = Field(
+        None, description="Updated character profile to generate UI design from"
+    )
+
+
+def _deep_merge(base: Dict[str, Any], overlay: Dict[str, Any]) -> Dict[str, Any]:
+    merged = dict(base)
+    for key, value in overlay.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge(merged[key], value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _with_generated_ui(user_id: int, data: Dict[str, Any]) -> Dict[str, Any]:
+    record = ui_design_store.get(user_id)
+    if record is None:
+        character_profile = data.get("character_profile")
+        if isinstance(character_profile, dict) and _needs_generated_palette(data):
+            generated = build_ui_design(character_profile, user_id)["ui_design"]
+            return _deep_merge(data, generated)
+        return data
+    ui_design = record.get("ui_design")
+    if not isinstance(ui_design, dict):
+        return data
+    return _deep_merge(data, ui_design)
+
+
+def _needs_generated_palette(data: Dict[str, Any]) -> bool:
+    representation = data.get("representation_profile")
+    if not isinstance(representation, dict):
+        return True
+    visual_identity = representation.get("visual_identity")
+    if not isinstance(visual_identity, dict):
+        return True
+    palette = visual_identity.get("color_palette")
+    return not isinstance(palette, list) or not palette
+
+
+def _has_required_signs(character_profile: Dict[str, Any]) -> bool:
+    return isinstance(character_profile.get("zodiac"), dict) and isinstance(
+        character_profile.get("horoscope"), dict
+    )
+
+
 def _avatar_job(user_id: int) -> None:
     data = store.get_data(user_id)
     if data is None:
@@ -101,7 +150,9 @@ def get_user(user_id: int) -> Dict[str, Any]:
     raw = store.get(user_id)
     if raw is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return raw
+    data, wrapped = unwrap(raw)
+    message = raw.get("message", "User retrieved") if wrapped else "User retrieved"
+    return envelope(_with_generated_ui(user_id, data), message=message)
 
 
 @app.patch("/users/{user_id}")
@@ -129,6 +180,24 @@ def get_matches(user_id: int) -> Dict[str, Any]:
     if data is None:
         raise HTTPException(status_code=404, detail="User not found")
     return envelope(build_matches(data), message="Matches listed")
+
+
+@app.post("/users/{user_id}/ui/generate")
+def generate_ui_design(user_id: int, body: UIGenerateBody) -> Dict[str, Any]:
+    data = store.get_data(user_id)
+    if data is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    if body.character_profile is None:
+        raise HTTPException(status_code=400, detail="character_profile is required")
+    if not _has_required_signs(body.character_profile):
+        raise HTTPException(
+            status_code=400,
+            detail="character_profile requires zodiac and horoscope",
+        )
+
+    design = build_ui_design(body.character_profile, user_id)
+    ui_design_store.save(user_id, design)
+    return envelope(design, message="UI design generated")
 
 
 @app.post("/users/{user_id}/avatar/generate")

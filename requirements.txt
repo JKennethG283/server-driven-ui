@@ -1,2 +1,0 @@
-# Used by Railway/Nixpacks to detect Python and install API dependencies.
--r api/requirements.txt
