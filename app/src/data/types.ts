@@ -100,6 +100,36 @@ export interface RepresentationProfile {
   personality_profile: PersonalityProfile;
 }
 
+export type MotionKind = "motes" | "ripples" | "dust" | "sparks" | "drift";
+
+export interface ThemeColors {
+  night: string;
+  night2: string;
+  night3: string;
+  accent: string;
+  accent2: string;
+  sky: string;
+  violet: string;
+  violetSoft: string;
+  cream: string;
+  text: string;
+  textDim: string;
+  textFaint: string;
+}
+
+export interface ThemeFonts {
+  display: string;
+  body: string;
+  mono: string;
+}
+
+export interface GeneratedTheme {
+  colors: ThemeColors;
+  fonts: ThemeFonts;
+  motion: MotionKind;
+  rationale: string;
+}
+
 export interface User {
   id: number;
   created_at: string;
@@ -125,6 +155,7 @@ export interface User {
   daily_inspiration: string | null;
   character_profile: CharacterProfile;
   representation_profile: RepresentationProfile;
+  ui_theme?: GeneratedTheme;
   avatar_picture: string;
   avatar_description: string;
   avatar_status: string;

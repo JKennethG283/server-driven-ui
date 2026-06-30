@@ -17,6 +17,36 @@ const FALLBACK_ACCENT = "#FFD54F";
 
 // Deterministically turn a schema-conforming User into a full Theme.
 export function deriveTheme(user: User): Theme {
+  if (user.ui_theme) {
+    const { colors, fonts, motion } = user.ui_theme;
+    const avatarReady = user.avatar_status === "completed";
+
+    return {
+      night: colors.night,
+      night2: colors.night2,
+      night3: colors.night3,
+      accent: colors.accent,
+      accent2: colors.accent2,
+      sky: colors.sky,
+      violet: colors.violet,
+      violetSoft: colors.violetSoft,
+      cream: colors.cream,
+      text: colors.text,
+      textDim: colors.textDim,
+      textFaint: colors.textFaint,
+      line: rgba(colors.cream, 0.1),
+      lineStrong: rgba(colors.cream, 0.18),
+      glow: glowFor(colors.accent),
+      raise: rgba(colors.cream, 0.04),
+      raise2: rgba(colors.cream, 0.07),
+      fontDisplay: fonts.display,
+      fontBody: fonts.body,
+      fontMono: fonts.mono || FONT_MONO,
+      motion,
+      backdrop: avatarReady ? user.avatar_picture : null,
+    };
+  }
+
   const vis = user.representation_profile.visual_identity;
   const marks = vis.signature_markings;
   const element = user.character_profile.zodiac.element;

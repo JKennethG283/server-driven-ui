@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from dotenv import load_dotenv
 
@@ -76,8 +76,16 @@ class ImportBody(BaseModel):
 
 
 class UIGenerateBody(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    user_json: Optional[Dict[str, Any]] = Field(
+        None,
+        alias="json",
+        description="Optional complete user envelope or raw user JSON to generate from",
+    )
     character_profile: Optional[Dict[str, Any]] = Field(
-        None, description="Updated character profile to generate UI design from"
+        None,
+        description="Optional updated character profile override for quiz simulation",
     )
 
 
@@ -96,7 +104,10 @@ def _with_generated_ui(user_id: int, data: Dict[str, Any]) -> Dict[str, Any]:
     if record is None:
         character_profile = data.get("character_profile")
         if isinstance(character_profile, dict) and _needs_generated_palette(data):
-            generated = build_ui_design(character_profile, user_id)["ui_design"]
+            try:
+                generated = build_ui_design(data, user_id)["ui_design"]
+            except RuntimeError:
+                return data
             return _deep_merge(data, generated)
         return data
     ui_design = record.get("ui_design")
@@ -122,12 +133,22 @@ def _has_required_signs(character_profile: Dict[str, Any]) -> bool:
     )
 
 
+def _generate_and_save_ui_design(user_id: int, data: Dict[str, Any]) -> Dict[str, Any]:
+    character_profile = data.get("character_profile")
+    if not isinstance(character_profile, dict):
+        raise RuntimeError("User has no character_profile")
+    design = build_ui_design(data, user_id, character_profile)
+    ui_design_store.save(user_id, design)
+    return design
+
+
 def _avatar_job(user_id: int) -> None:
     data = store.get_data(user_id)
     if data is None:
         return
     try:
         updated = run_avatar_pipeline(data)
+        _generate_and_save_ui_design(user_id, updated)
         store.save(user_id, updated, message="Avatar generated")
     except Exception:
         traceback.print_exc()
@@ -187,15 +208,30 @@ def generate_ui_design(user_id: int, body: UIGenerateBody) -> Dict[str, Any]:
     data = store.get_data(user_id)
     if data is None:
         raise HTTPException(status_code=404, detail="User not found")
-    if body.character_profile is None:
+    if body.user_json is None and body.character_profile is None:
         raise HTTPException(status_code=400, detail="character_profile is required")
-    if not _has_required_signs(body.character_profile):
+
+    source_data = data
+    if body.user_json is not None:
+        source_data, _ = unwrap(body.user_json)
+
+    character_profile = (
+        body.character_profile
+        if body.character_profile is not None
+        else source_data.get("character_profile")
+    )
+    if character_profile is None:
+        raise HTTPException(status_code=400, detail="character_profile is required")
+    if not _has_required_signs(character_profile):
         raise HTTPException(
             status_code=400,
             detail="character_profile requires zodiac and horoscope",
         )
 
-    design = build_ui_design(body.character_profile, user_id)
+    try:
+        design = build_ui_design(source_data, user_id, character_profile)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     ui_design_store.save(user_id, design)
     return envelope(design, message="UI design generated")
 

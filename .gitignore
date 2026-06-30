@@ -20,6 +20,7 @@ __pycache__/
 *.tsbuildinfo
 .pytest_cache/
 .pytest-tmp/
+.tmp/
 
 # OS / editor
 .DS_Store

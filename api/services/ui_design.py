@@ -1,148 +1,234 @@
-"""Rules-based UI design generation from a character profile."""
+"""Gemini-backed UI design generation from a full user profile JSON."""
 
 from __future__ import annotations
 
+import json
+import os
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, List, Optional
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+from pydantic import BaseModel, Field
 
 
-TRAIT_PALETTES = {
-    "calm": ["#8EC5C1", "#DDEFE8", "#F7E8C9", "#5F7F8C", "#2F3E46"],
-    "patient": ["#8EC5C1", "#DDEFE8", "#F7E8C9", "#5F7F8C", "#2F3E46"],
-    "grounded": ["#7A9E7E", "#D9C9A3", "#F5F0E1", "#5C6B4F", "#2E382E"],
-    "reflective": ["#6C7A89", "#B7C9D6", "#F2E9DC", "#40566B", "#1F2A38"],
-    "nurturing": ["#F6A6B2", "#FFE1D6", "#CDE7B0", "#7D9D9C", "#3B4A54"],
-    "sensitive": ["#B8A1D9", "#D7ECF7", "#FFE5F1", "#7895B2", "#2D3250"],
-    "protective": ["#53687E", "#9DB2BF", "#F5E9CF", "#DDA15E", "#283618"],
-    "intuitive": ["#7E6BC4", "#A8DADC", "#F1FAEE", "#457B9D", "#1D3557"],
-    "adventurous": ["#FFB74D", "#FFD54F", "#81D4FA", "#FFF8E7", "#8E44AD"],
-    "optimistic": ["#FFB74D", "#FFD54F", "#81D4FA", "#FFF8E7", "#8E44AD"],
-    "energetic": ["#FF6B35", "#F7C59F", "#EFEFD0", "#004E89", "#1A659E"],
-    "independent": ["#5BC0EB", "#FDE74C", "#9BC53D", "#E55934", "#FAFAFA"],
+HEX = r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+MOTION_KINDS = {"motes", "ripples", "dust", "sparks", "drift"}
+
+FONT_STACKS = {
+    "Fraunces": '"Fraunces Variable", Georgia, serif',
+    "Newsreader": '"Newsreader Variable", Georgia, serif',
+    "Roboto Slab": '"Roboto Slab Variable", Georgia, serif',
+    "Space Grotesk": '"Space Grotesk Variable", system-ui, sans-serif',
+    "Bitter": '"Bitter Variable", Georgia, serif',
+    "Manrope": '"Manrope Variable", system-ui, sans-serif',
+    "Mulish": '"Mulish Variable", system-ui, sans-serif',
+    "Work Sans": '"Work Sans Variable", system-ui, sans-serif',
+    "Inter": '"Inter Variable", system-ui, sans-serif',
+    "Space Mono": '"Space Mono", ui-monospace, monospace',
 }
 
-ELEMENT_PALETTES = {
-    "fire": ["#FF6B35", "#F7C59F", "#FDE74C", "#772F1A", "#1D1A05"],
-    "water": ["#5DADEC", "#B8E0D2", "#EEF5DB", "#3A506B", "#0B132B"],
-    "earth": ["#7A9E7E", "#D9C9A3", "#F5F0E1", "#5C6B4F", "#2E382E"],
-    "wood": ["#7CB518", "#C7EFCF", "#F3E9D2", "#4F772D", "#132A13"],
-    "metal": ["#BFC0C0", "#F4F4F9", "#A3CEF1", "#6096BA", "#274C77"],
-}
+DISPLAY_FONTS = [
+    "Fraunces",
+    "Newsreader",
+    "Roboto Slab",
+    "Space Grotesk",
+    "Bitter",
+]
+BODY_FONTS = ["Manrope", "Mulish", "Work Sans", "Inter"]
+MONO_FONT = "Space Mono"
 
-DEFAULT_PALETTE = ["#8ECAE6", "#FFB703", "#FB8500", "#F8F9FA", "#023047"]
+
+@dataclass
+class Settings:
+    google_api_key: str = field(default_factory=lambda: os.getenv("GOOGLE_API_KEY", ""))
+    gemini_model: str = field(
+        default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    )
+
+
+def require(settings: Settings) -> None:
+    if not settings.google_api_key:
+        raise RuntimeError(
+            "Missing env var: GOOGLE_API_KEY. Copy .env.example to .env and fill it in."
+        )
+
+
+class ColorMeaning(BaseModel):
+    color: str = Field(pattern=HEX)
+    meaning: str
+
+
+class EyeDesign(BaseModel):
+    color: str = Field(pattern=HEX)
+    shape: str
+    glow_intensity: float = Field(ge=0, le=1)
+
+
+class SignatureMarkings(BaseModel):
+    glow: bool
+    color: str = Field(pattern=HEX)
+    pattern: str
+    location: str
+
+
+class VisualIdentity(BaseModel):
+    pose: str
+    style: str
+    gender: str
+    base_form: str
+    eye_design: EyeDesign
+    accessories: List[str]
+    color_palette: List[str] = Field(min_length=4, max_length=6)
+    form_variants: List[str]
+    animation_effects: List[str]
+    signature_markings: SignatureMarkings
+
+
+class ThemeColors(BaseModel):
+    night: str = Field(pattern=HEX)
+    night2: str = Field(pattern=HEX)
+    night3: str = Field(pattern=HEX)
+    accent: str = Field(pattern=HEX)
+    accent2: str = Field(pattern=HEX)
+    sky: str = Field(pattern=HEX)
+    violet: str = Field(pattern=HEX)
+    violetSoft: str = Field(pattern=HEX)
+    cream: str = Field(pattern=HEX)
+    text: str = Field(pattern=HEX)
+    textDim: str = Field(pattern=HEX)
+    textFaint: str = Field(pattern=HEX)
+
+
+class ThemeFonts(BaseModel):
+    display: str
+    body: str
+    mono: str = MONO_FONT
+
+
+class UITheme(BaseModel):
+    colors: ThemeColors
+    fonts: ThemeFonts
+    motion: str
+    rationale: str
+
+
+class SymbolismPatch(BaseModel):
+    color_meanings: List[ColorMeaning] = Field(min_length=3, max_length=6)
+
+
+class RepresentationPatch(BaseModel):
+    symbolism: SymbolismPatch
+    visual_identity: VisualIdentity
+
+
+class GeneratedUIDesign(BaseModel):
+    ui_theme: UITheme
+    representation_profile: RepresentationPatch
+
+    def to_schema_dict(self) -> Dict[str, Any]:
+        data = self.model_dump()
+        color_pairs = data["representation_profile"]["symbolism"].pop(
+            "color_meanings"
+        )
+        data["representation_profile"]["symbolism"]["color_meanings"] = {
+            pair["color"]: pair["meaning"] for pair in color_pairs
+        }
+
+        fonts = data["ui_theme"]["fonts"]
+        fonts["display"] = FONT_STACKS.get(fonts["display"], fonts["display"])
+        fonts["body"] = FONT_STACKS.get(fonts["body"], fonts["body"])
+        fonts["mono"] = FONT_STACKS[MONO_FONT]
+
+        motion = str(data["ui_theme"].get("motion", "")).strip().lower()
+        data["ui_theme"]["motion"] = motion if motion in MOTION_KINDS else "motes"
+        return data
 
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def _items(value: Any) -> Iterable[str]:
-    if isinstance(value, list):
-        for item in value:
-            if isinstance(item, str):
-                yield item
+def _make_llm(settings: Settings, temperature: float = 0.7) -> ChatGoogleGenerativeAI:
+    return ChatGoogleGenerativeAI(
+        model=settings.gemini_model,
+        google_api_key=settings.google_api_key,
+        temperature=temperature,
+    )
 
 
-def _traits(character_profile: Dict[str, Any]) -> List[str]:
-    traits: List[str] = []
-    for sign_key in ("zodiac", "horoscope"):
-        sign = character_profile.get(sign_key, {})
-        if isinstance(sign, dict):
-            traits.extend(
-                item.strip().lower()
-                for item in _items(sign.get("personality_traits"))
-            )
-            traits.extend(item.strip().lower() for item in _items(sign.get("values")))
-    return [trait for trait in traits if trait]
+def _with_character_profile(
+    user_data: Dict[str, Any], character_profile: Optional[Dict[str, Any]]
+) -> Dict[str, Any]:
+    if character_profile is None:
+        return dict(user_data)
+    data = dict(user_data)
+    data["character_profile"] = character_profile
+    return data
 
 
-def _palette_for(character_profile: Dict[str, Any]) -> List[str]:
-    for trait in _traits(character_profile):
-        if trait in TRAIT_PALETTES:
-            return TRAIT_PALETTES[trait]
+def _prompt(user_data: Dict[str, Any]) -> str:
+    profile_json = json.dumps(user_data, indent=2, ensure_ascii=False)
+    return (
+        "You are the visual system designer for Astrana, a social app where each "
+        "user has a generated mascot avatar and a personalized interface theme.\n\n"
+        "Generate a UI design patch from the entire user JSON below. Use the full "
+        "profile, including bio, character_profile, representation_profile, and "
+        "avatar_description. If avatar_description is present, treat it as the "
+        "primary visual brief for the theme; otherwise infer from the rest of the "
+        "profile. Do not use a fixed trait-to-palette mapping. Infer a cohesive, "
+        "specific theme from the whole profile.\n\n"
+        "Return values for:\n"
+        "- ui_theme.colors: hex colors for the existing app CSS slots. night, "
+        "night2, and night3 should be dark surfaces; text, textDim, textFaint, "
+        "and cream must remain readable on those surfaces.\n"
+        "- ui_theme.fonts.display: choose exactly one of "
+        f"{', '.join(DISPLAY_FONTS)}.\n"
+        "- ui_theme.fonts.body: choose exactly one of "
+        f"{', '.join(BODY_FONTS)}.\n"
+        f"- ui_theme.fonts.mono: use {MONO_FONT}.\n"
+        "- ui_theme.motion: choose exactly one of motes, ripples, dust, sparks, drift.\n"
+        "- representation_profile.visual_identity: complete avatar visual fields "
+        "that align with the theme and avatar description.\n"
+        "- representation_profile.symbolism.color_meanings: 3-6 palette colors "
+        "with short meanings.\n\n"
+        "Keep color_palette to 4-6 hex colors and make eye_design.color and "
+        "signature_markings.color reuse or harmonize with that palette.\n\n"
+        "Entire user JSON:\n"
+        f"{profile_json}"
+    )
 
+
+def _source_summary(user_data: Dict[str, Any]) -> Dict[str, Any]:
+    character_profile = user_data.get("character_profile", {})
     zodiac = character_profile.get("zodiac", {})
-    if isinstance(zodiac, dict):
-        element = str(zodiac.get("element", "")).strip().lower()
-        if element in ELEMENT_PALETTES:
-            return ELEMENT_PALETTES[element]
-
-    return DEFAULT_PALETTE
-
-
-def _style_for(character_profile: Dict[str, Any]) -> str:
-    zodiac = character_profile.get("zodiac", {})
-    element = ""
-    if isinstance(zodiac, dict):
-        element = str(zodiac.get("element", "")).strip().lower()
-    styles = {
-        "fire": "kawaii plush with bright celestial sparks",
-        "water": "kawaii plush with soft wave and moonlit details",
-        "earth": "kawaii plush with grounded botanical stitching",
-        "wood": "kawaii plush with fresh leaf and growth motifs",
-        "metal": "kawaii plush with clean metallic thread accents",
+    horoscope = character_profile.get("horoscope", {})
+    return {
+        "zodiac": zodiac.get("sign") if isinstance(zodiac, dict) else None,
+        "horoscope": horoscope.get("sign") if isinstance(horoscope, dict) else None,
+        "avatar_description_used": bool(user_data.get("avatar_description")),
+        "source": "gemini",
     }
-    return styles.get(element, "kawaii minimalist plush with astrological details")
 
 
-def generate_ui_design(character_profile: Dict[str, Any], user_id: int) -> Dict[str, Any]:
-    """Generate UI design fields from a character profile."""
-    palette = _palette_for(character_profile)
-    traits = _traits(character_profile)
-    motif = traits[0] if traits else "balanced"
+def generate_ui_design(
+    user_data: Dict[str, Any],
+    user_id: int,
+    character_profile: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """Generate UI design fields from the full user JSON using Gemini."""
+    data = _with_character_profile(user_data, character_profile)
+    settings = Settings()
+    require(settings)
+
+    structured = _make_llm(settings).with_structured_output(GeneratedUIDesign)
+    result = structured.invoke(_prompt(data))
+    if not isinstance(result, GeneratedUIDesign):
+        result = GeneratedUIDesign.model_validate(result)
+
     return {
         "user_id": user_id,
         "generated_at": _now_iso(),
-        "source_summary": {
-            "zodiac": character_profile.get("zodiac", {}).get("sign"),
-            "horoscope": character_profile.get("horoscope", {}).get("sign"),
-            "traits": traits[:12],
-        },
-        "ui_design": {
-            "representation_profile": {
-                "visual_identity": {
-                    "pose": f"standing calmly with a {motif} expression",
-                    "style": _style_for(character_profile),
-                    "gender": "ambiguous",
-                    "base_form": (
-                        "A rounded, ultra-fluffy mascot with short soft limbs, "
-                        "simple expressive features, and a huggable silhouette."
-                    ),
-                    "color_palette": palette,
-                    "eye_design": {
-                        "color": palette[1],
-                        "shape": "large rounded ovals with a soft highlight",
-                        "glow_intensity": 0.24,
-                    },
-                    "accessories": [
-                        f"{motif} charm",
-                        "stitched star patch",
-                        "small woven keepsake pouch",
-                    ],
-                    "form_variants": [
-                        "Daily companion",
-                        "Profile showcase",
-                        "Compact sticker",
-                    ],
-                    "animation_effects": [
-                        "soft glow pulse",
-                        "gentle idle float",
-                        "subtle sparkle trail",
-                    ],
-                    "signature_markings": {
-                        "glow": True,
-                        "color": palette[1],
-                        "pattern": f"{motif} constellation mark",
-                        "location": "upper chest",
-                    },
-                },
-                "symbolism": {
-                    "color_meanings": {
-                        palette[0]: "primary personality tone",
-                        palette[1]: "active accent and highlights",
-                        palette[2]: "supporting emotional texture",
-                    }
-                },
-            }
-        },
+        "source_summary": _source_summary(data),
+        "ui_design": result.to_schema_dict(),
     }

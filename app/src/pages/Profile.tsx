@@ -107,7 +107,7 @@ export default function Profile() {
           >
             {user.avatar_status === "generating" || regenerating
               ? "Generating avatar…"
-              : "Regenerate avatar via API"}
+              : "Regenerate avatar and theme"}
           </button>
         </div>
       ) : null}
