@@ -21,6 +21,7 @@ import {
   fetchMatches,
   importUser,
   generateAvatar,
+  generateTheme,
 } from "../lib/api";
 import { deriveTheme } from "./deriveTheme";
 import { applyTheme } from "./applyTheme";
@@ -28,6 +29,7 @@ import { applyTheme } from "./applyTheme";
 const LS_ACTIVE = "astrana.activeId";
 const LS_UPLOADED = "astrana.uploaded";
 const POLL_MS = 3000;
+const AVATAR_POLL_LIMIT = 120;
 
 interface ProfileContextValue {
   user: User;
@@ -61,6 +63,10 @@ function entryFromUser(user: User, label?: string): ProfileEntry {
     label: label || user.first_name || String(user.id),
     user,
   };
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
 export function ProfileProvider({ children }: { children: ReactNode }) {
@@ -238,8 +244,22 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 
   const regenerateAvatar = useCallback(async () => {
     if (!isApiMode) return;
-    const updated = await generateAvatar(user.id);
-    upsertApiProfile(entryFromUser(updated));
+    const started = await generateAvatar(user.id);
+    upsertApiProfile(entryFromUser(started));
+
+    let fresh = started;
+    for (let attempt = 0; attempt < AVATAR_POLL_LIMIT; attempt += 1) {
+      if (fresh.avatar_status !== "generating") break;
+      await wait(POLL_MS);
+      fresh = await fetchUser(user.id);
+      upsertApiProfile(entryFromUser(fresh));
+    }
+
+    if (fresh.avatar_status !== "completed") return;
+
+    await generateTheme(user.id, fresh);
+    const themed = await fetchUser(user.id);
+    upsertApiProfile(entryFromUser(themed));
   }, [user.id, upsertApiProfile]);
 
   const value: ProfileContextValue = {

@@ -133,22 +133,12 @@ def _has_required_signs(character_profile: Dict[str, Any]) -> bool:
     )
 
 
-def _generate_and_save_ui_design(user_id: int, data: Dict[str, Any]) -> Dict[str, Any]:
-    character_profile = data.get("character_profile")
-    if not isinstance(character_profile, dict):
-        raise RuntimeError("User has no character_profile")
-    design = build_ui_design(data, user_id, character_profile)
-    ui_design_store.save(user_id, design)
-    return design
-
-
 def _avatar_job(user_id: int) -> None:
     data = store.get_data(user_id)
     if data is None:
         return
     try:
         updated = run_avatar_pipeline(data)
-        _generate_and_save_ui_design(user_id, updated)
         store.save(user_id, updated, message="Avatar generated")
     except Exception:
         traceback.print_exc()

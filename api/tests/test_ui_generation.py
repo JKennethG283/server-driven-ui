@@ -315,9 +315,8 @@ def test_generated_ui_theme_is_merged_into_user_response(tmp_path, monkeypatch):
     assert ui_theme["colors"]["accent"] == "#8EC5C1"
 
 
-def test_avatar_generation_also_generates_matching_ui_theme(tmp_path, monkeypatch):
+def test_avatar_generation_does_not_generate_ui_theme(tmp_path, monkeypatch):
     user_data = load_user_data()
-    calls = []
 
     def avatar_pipeline(data: dict) -> dict:
         updated = copy.deepcopy(data)
@@ -326,22 +325,22 @@ def test_avatar_generation_also_generates_matching_ui_theme(tmp_path, monkeypatc
         updated["avatar_description"] = "A newly generated moonlit mascot."
         return updated
 
-    def spy_ui_design(
-        user_data: dict, user_id: int, character_profile: dict | None = None
-    ) -> dict:
-        calls.append(copy.deepcopy(user_data))
-        return fake_ui_design(user_data, user_id, character_profile)
-
     client = client_with_user(tmp_path, monkeypatch, user_data)
     monkeypatch.setattr(main, "run_avatar_pipeline", avatar_pipeline)
-    monkeypatch.setattr(main, "build_ui_design", spy_ui_design)
+    monkeypatch.setattr(
+        main,
+        "build_ui_design",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("avatar generation should not generate UI design")
+        ),
+    )
 
     main._avatar_job(user_data["id"])
 
     response = client.get(user_path(user_data))
 
-    assert calls[0]["avatar_description"] == "A newly generated moonlit mascot."
     assert response.status_code == 200
     body = response.json()["data"]
     assert body["avatar_picture"] == "https://example.com/new-avatar.png"
-    assert body["ui_theme"]["colors"]["accent"] == "#8EC5C1"
+    assert "ui_theme" not in body
+    assert main.ui_design_store.get(user_data["id"]) is None

@@ -69,3 +69,11 @@ export async function generateAvatar(userId: number): Promise<User> {
   }
   return result.user;
 }
+
+export async function generateTheme(userId: number, user: User): Promise<void> {
+  await request<ApiResponse<unknown>>(`/users/${userId}/ui/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ json: user }),
+  });
+}
