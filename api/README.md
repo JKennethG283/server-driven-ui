@@ -33,6 +33,8 @@ Repo includes a root `Dockerfile` and `railway.toml` (Docker builder) so Railway
 
 1. New Project → Deploy from GitHub → this repo (root directory empty).
 2. Variables: `GOOGLE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`.
+   Optionally set `PUBLIC_API_URL` to the Railway public API URL so generated
+   avatar image URLs are absolute and stable.
 3. Generate a public domain → test `/health`.
 
 Railway should auto-detect the `Dockerfile`. If build fails, confirm **Settings → Builder** is Dockerfile, not Nixpacks.

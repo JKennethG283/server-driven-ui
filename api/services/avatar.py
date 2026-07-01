@@ -3,14 +3,19 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import sys
 import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
+from urllib.parse import unquote, urlparse
+from urllib.request import url2pathname
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GENERATE_PATH = REPO_ROOT / "tools" / "avatar_gen" / "generate.py"
+GENERATED_AVATAR_DIR = REPO_ROOT / "tools" / "avatar_gen" / "out"
+GENERATED_AVATAR_ROUTE = "/generated/avatars"
 
 
 def _now_iso() -> str:
@@ -30,17 +35,51 @@ def _load_generate_module():
     return module
 
 
+def _public_api_base_url() -> str:
+    explicit = os.getenv("PUBLIC_API_URL", "").strip()
+    if explicit:
+        return explicit.rstrip("/")
+
+    railway_domain = os.getenv("RAILWAY_PUBLIC_DOMAIN", "").strip()
+    if railway_domain:
+        if railway_domain.startswith(("http://", "https://")):
+            return railway_domain.rstrip("/")
+        return f"https://{railway_domain}".rstrip("/")
+
+    return "http://localhost:8000"
+
+
+def _public_avatar_url(uri: str) -> str:
+    if not uri.startswith("file:"):
+        return uri
+
+    parsed = urlparse(uri)
+    path = Path(url2pathname(unquote(parsed.path))).resolve()
+    try:
+        path.relative_to(GENERATED_AVATAR_DIR)
+    except ValueError:
+        return uri
+
+    return f"{_public_api_base_url()}{GENERATED_AVATAR_ROUTE}/{path.name}"
+
+
 def run_avatar_pipeline(user_data: Dict[str, Any]) -> Dict[str, Any]:
     """Run the full avatar pipeline and return updated user data."""
     gen = _load_generate_module()
     settings = gen.Settings()
+    settings.host_images = False
+    settings.out_dir = GENERATED_AVATAR_DIR
     gen.require(settings)
     llm = gen.make_llm(settings)
     app = gen.build_graph(settings, llm)
     final = app.invoke({"data": dict(user_data)})
     if final.get("errors"):
         raise RuntimeError("; ".join(final["errors"]))
-    return final["data"]
+    data = final["data"]
+    avatar_picture = data.get("avatar_picture")
+    if isinstance(avatar_picture, str):
+        data["avatar_picture"] = _public_avatar_url(avatar_picture)
+    return data
 
 
 def mark_generating(user_data: Dict[str, Any]) -> Dict[str, Any]:

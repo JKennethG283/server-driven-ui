@@ -9,12 +9,19 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
 from dotenv import load_dotenv
 
 from api.matches import build_matches
-from api.services.avatar import mark_failed, mark_generating, run_avatar_pipeline
+from api.services.avatar import (
+    GENERATED_AVATAR_DIR,
+    GENERATED_AVATAR_ROUTE,
+    mark_failed,
+    mark_generating,
+    run_avatar_pipeline,
+)
 from api.services.ui_design import generate_ui_design as build_ui_design
 from api.store import UIDesignStore, UserStore, envelope, unwrap
 
@@ -47,6 +54,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+GENERATED_AVATAR_DIR.mkdir(parents=True, exist_ok=True)
+app.mount(
+    GENERATED_AVATAR_ROUTE,
+    StaticFiles(directory=str(GENERATED_AVATAR_DIR)),
+    name="generated_avatars",
 )
 
 
